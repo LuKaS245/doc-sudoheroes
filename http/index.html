@@ -259,22 +259,22 @@
     <h1 id="creacion-de-virtual-hosts-informatica-y-formacion">Creación de virtual hosts informática y formación</h1>
 <p>Lo primero que debemos hacer es crear el primer fichero de nuestra web.</p>
 <p>Creamos el directorio /var/www/informatica y alli el index.html.</p>
-<p><img alt="Captura de pantalla 2025-01-29 104526" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 104526.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 104526" src="../img/Captura%20de%20pantalla%202025-01-29%20104526.png" /></p>
 <p>Le damos contenido.</p>
-<p><img alt="Captura de pantalla 2025-01-29 104645" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 104645.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 104645" src="../img/Captura%20de%20pantalla%202025-01-29%20104645.png" /></p>
 <p>Como vamos a tener dos virtual host creamos también el directorio /var/www/formacion y su propio index.html.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105020" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 105020.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 105020" src="../img/Captura%20de%20pantalla%202025-01-29%20105020.png" /></p>
 <p>Le damos contenido. </p>
-<p><img alt="Captura de pantalla 2025-01-29 105149" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 105149.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 105149" src="../img/Captura%20de%20pantalla%202025-01-29%20105149.png" /></p>
 <p>Ahora que ya tenemos algo que mostrar, en el directorio donde almacenamos los ficheros de configuración de Nginx, creamos el fichero de configuración tanto de informática como de formación.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105251" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 105251.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 105251" src="../img/Captura%20de%20pantalla%202025-01-29%20105251.png" /></p>
 <p>Como vamos a cambiar la ruta de los logs de errores y acceso necesitamos crearlos.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105909" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 105909.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 105909" src="../img/Captura%20de%20pantalla%202025-01-29%20105909.png" /></p>
 <p>Necesitamos que ambos ficheros tengan una configuración adecuada con las necesidades que tenemos para nuestros virtual hosts.</p>
 <p>Es importante definir en que puerto escucha, el nombre que sirve, el fichero que va a mostrar y la localización de los ficheros de configuración. </p>
-<p><img alt="Captura de pantalla 2025-01-29 113135" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 113135.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 113135" src="../img/Captura%20de%20pantalla%202025-01-29%20113135.png" /></p>
 <p>Para el departamento de formación el fichero de configuración contendrá lo siguiente:</p>
-<p><img alt="Captura de pantalla 2025-01-29 111246" src="C:\Users\lucas\AppData\Local\Temp\fz3temp-2\img\Captura de pantalla 2025-01-29 111246.png" /></p>
+<p><img alt="Captura de pantalla 2025-01-29 111246" src="../img/Captura%20de%20pantalla%202025-01-29%20111246.png" /></p>
 <p>Una vez hechas estas configuraciones necesitamos habilitar el virtual host. Para ello usamos el comando sudo a2ensite informatica.conf y el comando sudo a2ensite formacion.conf.</p>
 <p>Si nos movemos al directorio sites-enabled veremos que se han creado los enlaces simbólicos que habilitan los virtual hosts.</p>
 <p><img alt="Captura de pantalla 2025-01-29 111706" src="../img/Captura%20de%20pantalla%202025-01-29%20111706.png" /></p>
