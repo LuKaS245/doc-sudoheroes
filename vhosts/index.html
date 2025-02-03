@@ -18,7 +18,7 @@
 
     
  
-<title>DNS - SudoHeroes</title>
+<title>HTTP - SudoHeroes</title>
 
 
 <link href="../css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
@@ -99,7 +99,7 @@
                 
                 
                 <li property="itemListElement" typeof="ListItem">
-                    <a href="./" class="menu-item active" property="item" typeof="WebPage">
+                    <a href="../dns/" class="menu-item " property="item" typeof="WebPage">
                         <span property="name">DNS</span>
                     </a>
                     <meta property="position" content="1">
@@ -107,7 +107,7 @@
                 
                 
                 <li property="itemListElement" typeof="ListItem">
-                    <a href="../vhosts/" class="menu-item " property="item" typeof="WebPage">
+                    <a href="./" class="menu-item active" property="item" typeof="WebPage">
                         <span property="name">HTTP</span>
                     </a>
                     <meta property="position" content="2">
@@ -179,9 +179,11 @@
     
     
         
-        <span class="
+        
+            <a class="
 
-    terminal-mkdocs-side-nav-item--active">DNS</span>
+    terminal-mkdocs-side-nav-item" href="../dns/">DNS</a>
+        
     
     
     
@@ -196,11 +198,9 @@
     
     
         
-        
-            <a class="
+        <span class="
 
-    terminal-mkdocs-side-nav-item" href="../vhosts/">HTTP</a>
-        
+    terminal-mkdocs-side-nav-item--active">HTTP</span>
     
     
     
@@ -249,92 +249,35 @@
 </nav><hr>
 <nav>
     <ul>
-        <li><a href="#documentacion-de-la-configuracion-del-servidor-dns">Documentación de la Configuración del Servidor DNS</a></li>
-        <li><a href="#instalacion-de-bind">Instalación de BIND</a></li><li><a href="#configuracion-de-bind">Configuración de BIND</a></li><li><a href="#verificacion-de-la-configuracion">Verificación de la Configuración</a></li>
+        <li><a href="#creacion-de-virtual-hosts-informatica-y-formacion">Creación de virtual hosts informática y formación</a></li>
+        
     </ul>
 </nav>
 </aside>
             <main id="terminal-mkdocs-main-content">
 <section id="mkdocs-terminal-content">
-    <h1 id="documentacion-de-la-configuracion-del-servidor-dns">Documentación de la Configuración del Servidor DNS</h1>
-<h2 id="instalacion-de-bind">Instalación de BIND</h2>
-<p>En el servidor Fedora (<code>Fedora41</code>):</p>
-<ol>
-<li>Se instaló el paquete BIND utilizando el gestor de paquetes correspondiente:
-   <code>bash
-   sudo dnf install bind bind-utils</code></li>
-<li>Se habilitó y se inició el servicio BIND:
-   <code>bash
-   sudo systemctl enable named
-   sudo systemctl start named</code></li>
-</ol>
-<p><em>Captura de pantalla 1: Instalación de BIND</em></p>
-<h2 id="configuracion-de-bind">Configuración de BIND</h2>
-<h3 id="archivo-de-configuracion-principal-etcnamedconf">Archivo de configuración principal (<code>/etc/named.conf</code>)</h3>
-<p>El archivo principal se configuró con las siguientes opciones:
-- Se habilitó la escucha en las interfaces requeridas.
-- Se definieron las zonas primarias y secundarias.</p>
-<pre><code class="language-bash">options {
-    listen-on port 53 { any; };
-    directory &quot;/var/named&quot;;
-    allow-query { any; };
-};
-
-zone &quot;sudohero.es&quot; IN {
-    type master;
-    file &quot;/var/named/named.sudohero.es&quot;;
-};
-</code></pre>
-<p><em>Captura de pantalla 2: Contenido del archivo <code>/etc/named.conf</code></em></p>
-<h3 id="archivo-de-la-zona-primaria-varnamednamedsudoheroes">Archivo de la Zona Primaria (<code>/var/named/named.sudohero.es</code>)</h3>
-<p>Este archivo contiene los registros DNS de la zona primaria <code>sudohero.es</code>.</p>
-<pre><code class="language-bash">$TTL 86400
-@   IN  SOA ns1.sudohero.es. admin.sudohero.es. (
-        2025010101 ; Serial
-        3600       ; Refresh
-        1800       ; Retry
-        1209600    ; Expire
-        86400      ; Minimum TTL
-    )
-
-    IN  NS  ns1.sudohero.es.
-ns1 IN  A   192.168.1.10
-www IN  A   192.168.1.20
-</code></pre>
-<p><em>Captura de pantalla 3: Contenido del archivo <code>/var/named/named.sudohero.es</code></em></p>
-<h3 id="configuracion-de-zona-secundaria">Configuración de Zona Secundaria</h3>
-<p>En el servidor Ubuntu (<code>Ubuntu24</code>), se configuró la zona secundaria para replicar los registros de <code>sudohero.es</code>.</p>
-<ol>
-<li>Instalación de BIND:
-   <code>bash
-   sudo apt install bind9</code></li>
-<li>Configuración del archivo <code>/etc/bind/named.conf.local</code>:
-   <code>bash
-   zone "sudohero.es" IN {
-       type slave;
-       masters { 192.168.1.10; };
-       file "/var/cache/bind/sudohero.es";
-   };</code></li>
-<li>Se reinició el servicio:
-   <code>bash
-   sudo systemctl restart bind9</code></li>
-</ol>
-<p><em>Captura de pantalla 4: Configuración de zona secundaria</em></p>
-<h2 id="verificacion-de-la-configuracion">Verificación de la Configuración</h2>
-<ol>
-<li>Comprobación de que el servicio está escuchando en el puerto 53:
-   <code>bash
-   sudo netstat -tulnp | grep :53</code></li>
-</ol>
-<p><em>Captura de pantalla 5: Resultado del comando anterior</em></p>
-<ol>
-<li>Resolución de nombres para confirmar que los registros funcionan correctamente:
-   <code>bash
-   dig @192.168.1.10 www.sudohero.es</code></li>
-</ol>
-<p><em>Captura de pantalla 6: Salida del comando <code>dig</code></em></p>
-<hr />
-<p>Este documento puede ser ampliado con más detalles o correcciones según sea necesario. Las capturas de pantalla mencionadas deben insertarse en los lugares correspondientes.</p>
+    <h1 id="creacion-de-virtual-hosts-informatica-y-formacion">Creación de virtual hosts informática y formación</h1>
+<p>Lo primero que debemos hacer es crear el primer fichero de nuestra web.</p>
+<p>Creamos el directorio /var/www/informatica y alli el index.html.</p>
+<p><img alt="Captura de pantalla 2025-01-29 104526" src="../img/Captura%20de%20pantalla%202025-01-29%20104526.png" /></p>
+<p>Le damos contenido.</p>
+<p><img alt="Captura de pantalla 2025-01-29 104645" src="../img/Captura%20de%20pantalla%202025-01-29%20104645.png" /></p>
+<p>Como vamos a tener dos virtual host creamos también el directorio /var/www/formacion y su propio index.html.</p>
+<p><img alt="Captura de pantalla 2025-01-29 105020" src="../img/Captura%20de%20pantalla%202025-01-29%20105020.png" /></p>
+<p>Le damos contenido. </p>
+<p><img alt="Captura de pantalla 2025-01-29 105149" src="../img/Captura%20de%20pantalla%202025-01-29%20105149.png" /></p>
+<p>Ahora que ya tenemos algo que mostrar, en el directorio donde almacenamos los ficheros de configuración de Nginx, creamos el fichero de configuración tanto de informática como de formación.</p>
+<p><img alt="Captura de pantalla 2025-01-29 105251" src="../img/Captura%20de%20pantalla%202025-01-29%20105251.png" /></p>
+<p>Como vamos a cambiar la ruta de los logs de errores y acceso necesitamos crearlos.</p>
+<p><img alt="Captura de pantalla 2025-01-29 105909" src="../img/Captura%20de%20pantalla%202025-01-29%20105909.png" /></p>
+<p>Necesitamos que ambos ficheros tengan una configuración adecuada con las necesidades que tenemos para nuestros virtual hosts.</p>
+<p>Es importante definir en que puerto escucha, el nombre que sirve, el fichero que va a mostrar y la localización de los ficheros de configuración. </p>
+<p><img alt="Captura de pantalla 2025-01-29 113135" src="../img/Captura%20de%20pantalla%202025-01-29%20113135.png" /></p>
+<p>Para el departamento de formación el fichero de configuración contendrá lo siguiente:</p>
+<p><img alt="Captura de pantalla 2025-01-29 111246" src="../img/Captura%20de%20pantalla%202025-01-29%20111246.png" /></p>
+<p>Una vez hechas estas configuraciones necesitamos habilitar el virtual host. Para ello usamos el comando sudo a2ensite informatica.conf y el comando sudo a2ensite formacion.conf.</p>
+<p>Si nos movemos al directorio sites-enabled veremos que se han creado los enlaces simbólicos que habilitan los virtual hosts.</p>
+<p><img alt="Captura de pantalla 2025-01-29 111706" src="../img/Captura%20de%20pantalla%202025-01-29%20111706.png" /></p>
 </section>
 
             </main>
