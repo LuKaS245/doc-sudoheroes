@@ -1,0 +1,10 @@
+site_name: SudoHeroes
+
+nav:
+    - Inicio: index.md
+    - DNS: dns.md
+    - HTTP: http.md
+    - Apps Web: appweb.md
+    - Correo Electrónico: mail.md
+
+theme: terminal
