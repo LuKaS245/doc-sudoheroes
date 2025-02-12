@@ -249,7 +249,7 @@
 </nav><hr>
 <nav>
     <ul>
-        <li><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</a></li>
+        <li><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</a></li>
         <li><a href="#implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</a></li>
         
     </ul>
@@ -257,7 +257,7 @@
 </aside>
             <main id="terminal-mkdocs-main-content">
 <section id="mkdocs-terminal-content">
-    <h1 id="asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</h1>
+    <h1 id="asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</h1>
 <p>Lo primero que haremos será asignar direcciones IP elásticas a nuestras instancias en AWS.</p>
 <p>Accedemos a la consola de AWS y seleccionamos la opción de direcciones IP elásticas. Luego, asignamos una dirección IP a cada una de nuestras instancias.</p>
 <p><img alt="img/eips-ionosdns/asignacion_ip_1.bmp" src="../img/eips-ionosdns/asignacion_ip_1.bmp" /></p>
@@ -281,12 +281,12 @@
 <p><img alt="img/dns-bind/image003.bmp" src="../img/dns-bind/image003.bmp" /></p>
 <p>Configuramos el archivo de zona en <code>/var/named/named.sudohero.es</code>, definiendo los registros DNS.</p>
 <p><img alt="img/dns-bind/image004.bmp" src="../img/dns-bind/image004.bmp" /></p>
-<p>Aseguramos los permisos correctos para el archivo de zona y reiniciamos el servicio BIND.</p>
+<p>Aseguramos los permisos correctos para el archivo de zona y reiniciamos el servicio BIND. Realizamos una consulta con <code>nslookup</code> para comprobar la resolución de nombres.</p>
 <pre><code class="language-bash">chmod 640 /var/named/named.sudohero.es
 systemctl restart named
 </code></pre>
 <p><img alt="img/dns-bind/image005.bmp" src="../img/dns-bind/image005.bmp" /></p>
-<p>Realizamos una consulta con <code>nslookup</code> para comprobar la resolución de nombres.</p>
+<p>Añadimos al fichero de zona el registro de la zona secundaria que crearemos a continuación en la instancia Ubuntu.</p>
 <p><img alt="img/dns-bind/image006.bmp" src="../img/dns-bind/image006.bmp" /></p>
 <p>En la instancia Ubuntu, instalamos BIND9 con:</p>
 <pre><code class="language-bash">apt install bind9
@@ -296,13 +296,13 @@ systemctl restart named
 <p><img alt="img/dns-bind/image008.bmp" src="../img/dns-bind/image008.bmp" /></p>
 <p>Verificamos la transferencia de zona en los logs del sistema.</p>
 <p><img alt="img/dns-bind/image009.bmp" src="../img/dns-bind/image009.bmp" /></p>
-<p>Finalmente, configuramos en IONOS el dominio para que utilice nuestros servidores DNS propios.</p>
+<p>Comprobamos en la instancia Ubuntu que la zona se ha transferido correctamente.</p>
 <p><img alt="img/dns-bind/image010.bmp" src="../img/dns-bind/image010.bmp" /></p>
 <p>Verificamos la configuración de los servidores DNS con consultas <code>nslookup</code>.</p>
 <p><img alt="img/dns-bind/image011.bmp" src="../img/dns-bind/image011.bmp" /></p>
-<p>Modificamos la configuración en IONOS para apuntar a nuestros servidores DNS.</p>
+<p>Finalmente, configuramos en IONOS el dominio para que utilice nuestros servidores DNS propios.</p>
 <p><img alt="img/dns-bind/image012.bmp" src="../img/dns-bind/image012.bmp" /></p>
-<p>Verificamos la correcta propagación de los registros.</p>
+<p>Añadimos un registro a cada una de las instancias para un acceso más cómodo.</p>
 <p><img alt="img/dns-bind/image013.bmp" src="../img/dns-bind/image013.bmp" /></p>
 <p>Con esto, hemos finalizado la implementación del servidor DNS con BIND.</p>
 </section>
