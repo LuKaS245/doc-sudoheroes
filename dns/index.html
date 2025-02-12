@@ -250,6 +250,7 @@
 <nav>
     <ul>
         <li><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</a></li>
+        <li><a href="#implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</a></li>
         
     </ul>
 </nav>
@@ -268,6 +269,42 @@
 <p><img alt="img/eips-ionosdns/configuracion_dns_lobezno.bmp" src="../img/eips-ionosdns/configuracion_dns_lobezno.bmp" /></p>
 <p>Finalmente, verificamos que las entradas han sido creadas correctamente.</p>
 <p><img alt="img/eips-ionosdns/verificacion_dns.bmp" src="../img/eips-ionosdns/verificacion_dns.bmp" /></p>
+<h1 id="implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</h1>
+<p>En esta documentación se detallará el proceso de instalación y configuración de un servidor DNS primario en Fedora y un servidor secundario en Ubuntu, utilizando BIND.</p>
+<p>Para comenzar, instalamos el paquete BIND en la instancia Fedora con el siguiente comando:</p>
+<pre><code class="language-bash">dnf install bind
+</code></pre>
+<p><img alt="img/dns-bind/image001.bmp" src="../img/dns-bind/image001.bmp" /></p>
+<p>Editamos el archivo de configuración principal de BIND en <code>/etc/named.conf</code> para definir las opciones básicas del servicio.</p>
+<p><img alt="img/dns-bind/image002.bmp" src="../img/dns-bind/image002.bmp" /></p>
+<p>Definimos la zona del dominio <code>sudohero.es</code>, especificando que se trata de una zona maestra.</p>
+<p><img alt="img/dns-bind/image003.bmp" src="../img/dns-bind/image003.bmp" /></p>
+<p>Configuramos el archivo de zona en <code>/var/named/named.sudohero.es</code>, definiendo los registros DNS.</p>
+<p><img alt="img/dns-bind/image004.bmp" src="../img/dns-bind/image004.bmp" /></p>
+<p>Aseguramos los permisos correctos para el archivo de zona y reiniciamos el servicio BIND.</p>
+<pre><code class="language-bash">chmod 640 /var/named/named.sudohero.es
+systemctl restart named
+</code></pre>
+<p><img alt="img/dns-bind/image005.bmp" src="../img/dns-bind/image005.bmp" /></p>
+<p>Realizamos una consulta con <code>nslookup</code> para comprobar la resolución de nombres.</p>
+<p><img alt="img/dns-bind/image006.bmp" src="../img/dns-bind/image006.bmp" /></p>
+<p>En la instancia Ubuntu, instalamos BIND9 con:</p>
+<pre><code class="language-bash">apt install bind9
+</code></pre>
+<p><img alt="img/dns-bind/image007.bmp" src="../img/dns-bind/image007.bmp" /></p>
+<p>Definimos la zona esclava en el archivo <code>/etc/bind/named.conf.local</code>.</p>
+<p><img alt="img/dns-bind/image008.bmp" src="../img/dns-bind/image008.bmp" /></p>
+<p>Verificamos la transferencia de zona en los logs del sistema.</p>
+<p><img alt="img/dns-bind/image009.bmp" src="../img/dns-bind/image009.bmp" /></p>
+<p>Finalmente, configuramos en IONOS el dominio para que utilice nuestros servidores DNS propios.</p>
+<p><img alt="img/dns-bind/image010.bmp" src="../img/dns-bind/image010.bmp" /></p>
+<p>Verificamos la configuración de los servidores DNS con consultas <code>nslookup</code>.</p>
+<p><img alt="img/dns-bind/image011.bmp" src="../img/dns-bind/image011.bmp" /></p>
+<p>Modificamos la configuración en IONOS para apuntar a nuestros servidores DNS.</p>
+<p><img alt="img/dns-bind/image012.bmp" src="../img/dns-bind/image012.bmp" /></p>
+<p>Verificamos la correcta propagación de los registros.</p>
+<p><img alt="img/dns-bind/image013.bmp" src="../img/dns-bind/image013.bmp" /></p>
+<p>Con esto, hemos finalizado la implementación del servidor DNS con BIND.</p>
 </section>
 
             </main>
