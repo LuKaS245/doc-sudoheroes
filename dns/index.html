@@ -249,25 +249,25 @@
 </nav><hr>
 <nav>
     <ul>
-        <li><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</a></li>
+        <li><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</a></li>
         
     </ul>
 </nav>
 </aside>
             <main id="terminal-mkdocs-main-content">
 <section id="mkdocs-terminal-content">
-    <h1 id="asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</h1>
+    <h1 id="asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</h1>
 <p>Lo primero que haremos será asignar direcciones IP elásticas a nuestras instancias en AWS.</p>
 <p>Accedemos a la consola de AWS y seleccionamos la opción de direcciones IP elásticas. Luego, asignamos una dirección IP a cada una de nuestras instancias.</p>
-<p><img alt="img/ips-dns/image001.png" src="../img/ips-dns/image001.png" /></p>
-<p><img alt="img/ips-dns/image002.png" src="../img/ips-dns/image002.png" /></p>
+<p><img alt="img/eips-ionosdns/asignacion_ip_1.bmp" src="../img/eips-ionosdns/asignacion_ip_1.bmp" /></p>
+<p><img alt="img/eips-ionosdns/asignacion_ip_2.bmp" src="../img/eips-ionosdns/asignacion_ip_2.bmp" /></p>
 <p>Una vez asignadas las IPs, nos conectamos a cada una de ellas por SSH y realizamos pruebas de conectividad mediante ping.</p>
-<p><img alt="img/ips-dns/image003.png" src="../img/ips-dns/image003.png" /></p>
+<p><img alt="img/eips-ionosdns/conexion_ssh_ping.bmp" src="../img/eips-ionosdns/conexion_ssh_ping.bmp" /></p>
 <p>A continuación, configuramos las entradas DNS en nuestro dominio gestionado en IONOS. Añadimos dos registros tipo A, asignando cada IP elástica a un subdominio correspondiente.</p>
-<p><img alt="img/ips-dns/image004.png" src="../img/ips-dns/image004.png" /></p>
-<p><img alt="img/ips-dns/image005.png" src="../img/ips-dns/image005.png" /></p>
+<p><img alt="img/eips-ionosdns/configuracion_dns_tormenta.bmp" src="../img/eips-ionosdns/configuracion_dns_tormenta.bmp" /></p>
+<p><img alt="img/eips-ionosdns/configuracion_dns_lobezno.bmp" src="../img/eips-ionosdns/configuracion_dns_lobezno.bmp" /></p>
 <p>Finalmente, verificamos que las entradas han sido creadas correctamente.</p>
-<p><img alt="img/ips-dns/image006.png" src="../img/ips-dns/image006.png" /></p>
+<p><img alt="img/eips-ionosdns/verificacion_dns.bmp" src="../img/eips-ionosdns/verificacion_dns.bmp" /></p>
 </section>
 
             </main>
