@@ -258,14 +258,11 @@
 <section id="mkdocs-terminal-content">
     <h1 id="asignacion-de-ips-elasticas-y-configuracion-de-dns">Asignación de IPs elásticas y configuración de DNS</h1>
 <p>Lo primero que haremos será asignar direcciones IP elásticas a nuestras instancias en AWS.</p>
-<p><span style="font-size: 18px; font-weight: bold;">Asignación de IPs elásticas</span></p>
 <p>Accedemos a la consola de AWS y seleccionamos la opción de direcciones IP elásticas. Luego, asignamos una dirección IP a cada una de nuestras instancias.</p>
 <p><img alt="img/asignacion_ip_1.png" src="../img/asignacion_ip_1.png" /></p>
 <p><img alt="img/asignacion_ip_2.png" src="../img/asignacion_ip_2.png" /></p>
-<p><span style="font-size: 18px; font-weight: bold;">Conexión por SSH y pruebas de conectividad</span></p>
 <p>Una vez asignadas las IPs, nos conectamos a cada una de ellas por SSH y realizamos pruebas de conectividad mediante ping.</p>
 <p><img alt="img/conexion_ssh_ping.png" src="../img/conexion_ssh_ping.png" /></p>
-<p><span style="font-size: 18px; font-weight: bold;">Configuración de DNS en IONOS</span></p>
 <p>A continuación, configuramos las entradas DNS en nuestro dominio gestionado en IONOS. Añadimos dos registros tipo A, asignando cada IP elástica a un subdominio correspondiente.</p>
 <p><img alt="img/configuracion_dns_tormenta.png" src="../img/configuracion_dns_tormenta.png" /></p>
 <p><img alt="img/configuracion_dns_lobezno.png" src="../img/configuracion_dns_lobezno.png" /></p>
