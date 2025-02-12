@@ -132,11 +132,44 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#instalacion-de-mkdocs-y-despliegue-en-github-pages">Instalación de MkDocs y despliegue en GitHub Pages</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-</div>
+<h2 id="instalacion-de-mkdocs-y-despliegue-en-github-pages">Instalación de MkDocs y despliegue en GitHub Pages</h2>
+<p>En esta documentación se describe el proceso de instalación de MkDocs en una instancia Ubuntu y su configuración para desplegar una documentación en GitHub Pages.</p>
+<p>Para comenzar, instalamos MkDocs con el siguiente comando:</p>
+<pre><code class="language-bash">sudo apt install mkdocs
+</code></pre>
+<p><img alt="img/mkdocs-github/image001.bmp" src="../img/mkdocs-github/image001.bmp" /></p>
+<p>Creamos un nuevo proyecto con MkDocs y verificamos su estructura de archivos:</p>
+<pre><code class="language-bash">mkdocs new sudoheroes
+cd sudoheroes
+ls -l
+</code></pre>
+<p><img alt="img/mkdocs-github/image002.bmp" src="../img/mkdocs-github/image002.bmp" /></p>
+<p>Instalamos el tema <code>cinder</code> para personalizar la apariencia de la documentación:</p>
+<pre><code class="language-bash">sudo pip install mkdocs-cinder --break-system-packages
+</code></pre>
+<p><img alt="img/mkdocs-github/image003.bmp" src="../img/mkdocs-github/image003.bmp" /></p>
+<p>Modificamos el archivo de configuración <code>mkdocs.yml</code> para definir la estructura del sitio y el tema:</p>
+<p><img alt="img/mkdocs-github/image004.bmp" src="../img/mkdocs-github/image004.bmp" /></p>
+<p>Verificamos que la estructura de archivos sea la correcta antes de proceder al despliegue:</p>
+<p><img alt="img/mkdocs-github/image005.bmp" src="../img/mkdocs-github/image005.bmp" /></p>
+<p>Realizamos un primer commit y preparamos la configuración para subir la documentación a GitHub:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;Pequeñas modificaciones&quot;
+git push origin main
+</code></pre>
+<p><img alt="img/mkdocs-github/image006.bmp" src="../img/mkdocs-github/image006.bmp" /></p>
+<p>Finalmente, desplegamos la documentación en GitHub Pages con el siguiente comando:</p>
+<pre><code class="language-bash">mkdocs gh-deploy
+</code></pre>
+<p><img alt="img/mkdocs-github/image007.bmp" src="../img/mkdocs-github/image007.bmp" /></p>
+<p>Confirmamos que la documentación ya está accesible en la URL generada por GitHub Pages:</p>
+<p><img alt="img/mkdocs-github/image008.bmp" src="../img/mkdocs-github/image008.bmp" /></p>
+<p>Con esto, hemos finalizado la instalación y configuración de MkDocs en Ubuntu con despliegue en GitHub Pages.</p></div>
         
         
     </div>
