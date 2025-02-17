@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>DNS - SudoHeroes</title>
+    <title>SOs y Red - SudoHeroes</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -75,14 +75,14 @@
                 
                 
                 
-                    <li >
-                        <a href="../osyred/">SOs y Red</a>
+                    <li class="active">
+                        <a href="./">SOs y Red</a>
                     </li>
                 
                 
                 
-                    <li class="active">
-                        <a href="./">DNS</a>
+                    <li >
+                        <a href="../dns/">DNS</a>
                     </li>
                 
                 
@@ -119,12 +119,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../osyred/">
+                        <a rel="prev" href="..">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../http/">
+                        <a rel="next" href="../dns/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -138,60 +138,11 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</a></li>
-        <li class="first-level "><a href="#implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</h2>
-<p>Lo primero que haremos será asignar direcciones IP elásticas a nuestras instancias en AWS.</p>
-<p>Accedemos a la consola de AWS y seleccionamos la opción de direcciones IP elásticas. Luego, asignamos una dirección IP a cada una de nuestras instancias.</p>
-<p><img alt="img/eips-ionosdns/asignacion_ip_1.bmp" src="../img/eips-ionosdns/asignacion_ip_1.bmp" /></p>
-<p><img alt="img/eips-ionosdns/asignacion_ip_2.bmp" src="../img/eips-ionosdns/asignacion_ip_2.bmp" /></p>
-<p>Una vez asignadas las IPs, nos conectamos a cada una de ellas por SSH y realizamos pruebas de conectividad mediante ping.</p>
-<p><img alt="img/eips-ionosdns/conexion_ssh_ping.bmp" src="../img/eips-ionosdns/conexion_ssh_ping.bmp" /></p>
-<p>A continuación, configuramos las entradas DNS en nuestro dominio gestionado en IONOS. Añadimos dos registros tipo A, asignando cada IP elástica a un subdominio correspondiente.</p>
-<p><img alt="img/eips-ionosdns/configuracion_dns_tormenta.bmp" src="../img/eips-ionosdns/configuracion_dns_tormenta.bmp" /></p>
-<p><img alt="img/eips-ionosdns/configuracion_dns_lobezno.bmp" src="../img/eips-ionosdns/configuracion_dns_lobezno.bmp" /></p>
-<p>Finalmente, verificamos que las entradas han sido creadas correctamente.</p>
-<p><img alt="img/eips-ionosdns/verificacion_dns.bmp" src="../img/eips-ionosdns/verificacion_dns.bmp" /></p>
-<h2 id="implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</h2>
-<p>En esta documentación se detallará el proceso de instalación y configuración de un servidor DNS primario en Fedora y un servidor secundario en Ubuntu, utilizando BIND.</p>
-<p>Para comenzar, instalamos el paquete BIND en la instancia Fedora con el siguiente comando:</p>
-<pre><code class="language-bash">dnf install bind
-</code></pre>
-<p><img alt="img/dns-bind/image001.bmp" src="../img/dns-bind/image001.bmp" /></p>
-<p>Editamos el archivo de configuración principal de BIND en <code>/etc/named.conf</code> para definir las opciones básicas del servicio.</p>
-<p><img alt="img/dns-bind/image002.bmp" src="../img/dns-bind/image002.bmp" /></p>
-<p>Definimos la zona del dominio <code>sudohero.es</code>, especificando que se trata de una zona maestra.</p>
-<p><img alt="img/dns-bind/image003.bmp" src="../img/dns-bind/image003.bmp" /></p>
-<p>Configuramos el archivo de zona en <code>/var/named/named.sudohero.es</code>, definiendo los registros DNS.</p>
-<p><img alt="img/dns-bind/image004.bmp" src="../img/dns-bind/image004.bmp" /></p>
-<p>Aseguramos los permisos correctos para el archivo de zona y reiniciamos el servicio BIND. Realizamos una consulta con <code>nslookup</code> para comprobar la resolución de nombres.</p>
-<pre><code class="language-bash">chmod 640 /var/named/named.sudohero.es
-systemctl restart named
-</code></pre>
-<p><img alt="img/dns-bind/image005.bmp" src="../img/dns-bind/image005.bmp" /></p>
-<p>Añadimos al fichero de zona el registro de la zona secundaria que crearemos a continuación en la instancia Ubuntu.</p>
-<p><img alt="img/dns-bind/image006.bmp" src="../img/dns-bind/image006.bmp" /></p>
-<p>En la instancia Ubuntu, instalamos BIND9 con:</p>
-<pre><code class="language-bash">apt install bind9
-</code></pre>
-<p><img alt="img/dns-bind/image007.bmp" src="../img/dns-bind/image007.bmp" /></p>
-<p>Definimos la zona esclava en el archivo <code>/etc/bind/named.conf.local</code>.</p>
-<p><img alt="img/dns-bind/image008.bmp" src="../img/dns-bind/image008.bmp" /></p>
-<p>Verificamos la transferencia de zona en los logs del sistema.</p>
-<p><img alt="img/dns-bind/image009.bmp" src="../img/dns-bind/image009.bmp" /></p>
-<p>Comprobamos en la instancia Ubuntu que la zona se ha transferido correctamente.</p>
-<p><img alt="img/dns-bind/image010.bmp" src="../img/dns-bind/image010.bmp" /></p>
-<p>Verificamos la configuración de los servidores DNS con consultas <code>nslookup</code>.</p>
-<p><img alt="img/dns-bind/image011.bmp" src="../img/dns-bind/image011.bmp" /></p>
-<p>Finalmente, configuramos en IONOS el dominio para que utilice nuestros servidores DNS propios.</p>
-<p><img alt="img/dns-bind/image012.bmp" src="../img/dns-bind/image012.bmp" /></p>
-<p>Añadimos un registro a cada una de las instancias para un acceso más cómodo.</p>
-<p><img alt="img/dns-bind/image013.bmp" src="../img/dns-bind/image013.bmp" /></p>
-<p>Con esto, hemos finalizado la implementación del servidor DNS con BIND.</p></div>
+</div>
         
         
     </div>
