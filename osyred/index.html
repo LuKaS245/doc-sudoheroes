@@ -162,6 +162,17 @@
                 
                 <li class="third-level"><a href="#tabla-de-rutas-de-la-subred-publica">Tabla de rutas de la subred pública</a></li>
                 <li class="third-level"><a href="#tabla-de-rutas-de-la-subred-privada">Tabla de rutas de la subred privada</a></li>
+        <li class="first-level "><a href="#creacion-de-instancias-en-las-subredes-de-aws">Creación de Instancias en las Subredes de AWS</a></li>
+            <li class="second-level"><a href="#1-creacion-de-la-instancia-fedora-servidor-dns-primario-en-la-subred-publica">1. Creación de la Instancia Fedora (Servidor DNS Primario) en la Subred Pública</a></li>
+                
+            <li class="second-level"><a href="#2-creacion-de-la-instancia-ubuntu-servidor-web-y-correo-en-la-subred-publica">2. Creación de la Instancia Ubuntu (Servidor Web y Correo) en la Subred Pública</a></li>
+                
+            <li class="second-level"><a href="#3-creacion-de-la-instancia-fedora-servidor-de-aplicaciones-y-formacion-en-la-subred-privada">3. Creación de la Instancia Fedora (Servidor de Aplicaciones y Formación) en la Subred Privada</a></li>
+                
+            <li class="second-level"><a href="#4-creacion-de-la-instancia-windows-server-2025-cliente-en-la-subred-publica">4. Creación de la Instancia Windows Server 2025 (Cliente) en la Subred Pública</a></li>
+                
+            <li class="second-level"><a href="#4-grupos-de-seguridad">4. Grupos de seguridad</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -257,7 +268,56 @@
 <p>Agregamos una nueva regla:</p>
 <p><img alt="" src="../img/vpc/vpc12.jpg" /></p>
 <p>Guardamos la configuración.</p>
-<p>Esta documentación describe detalladamente el proceso de creación y configuración de la VPC y sus subredes en AWS.</p></div>
+<p><img alt="" src="../img/vpc/vpc14.jpg" /></p>
+<p>Esta documentación describe detalladamente el proceso de creación y configuración de la VPC y sus subredes en AWS.</p>
+<h2 id="creacion-de-instancias-en-las-subredes-de-aws">Creación de Instancias en las Subredes de AWS</h2>
+<p>En esta documentación se describe paso a paso el proceso de creación y configuración de las instancias dentro de las subredes pública y privada de la VPC en AWS.</p>
+<h3 id="1-creacion-de-la-instancia-fedora-servidor-dns-primario-en-la-subred-publica">1. Creación de la Instancia Fedora (Servidor DNS Primario) en la Subred Pública</h3>
+<p>Accedemos a la consola de AWS y vamos al servicio <strong>EC2</strong>.</p>
+<p>Hacemos clic en <strong>Lanzar Instancia</strong> y configuramos lo siguiente:</p>
+<p><img alt="" src="../img/instas/instas1.bmp" /></p>
+<p><img alt="" src="../img/instas/instas2.bmp" /></p>
+<p>Generamos o usamos un par de claves para acceder a la instancia.</p>
+<p><img alt="" src="../img/instas/instas4.bmp" /></p>
+<p>Le asignamos una IP elástica.</p>
+<p><img alt="" src="../img/instas/instas14.bmp" /></p>
+<p>Comprobamos su conectividad.</p>
+<p><img alt="" src="../img/instas/instas13.jpg" /></p>
+<h3 id="2-creacion-de-la-instancia-ubuntu-servidor-web-y-correo-en-la-subred-publica">2. Creación de la Instancia Ubuntu (Servidor Web y Correo) en la Subred Pública</h3>
+<p>Repetimos el proceso anterior con las siguientes configuraciones:</p>
+<p><img alt="" src="../img/instas/instas3.bmp" /></p>
+<p><img alt="" src="../img/instas/instas5.bmp" /></p>
+<p>Le asignamos una dirección IP elástica.</p>
+<p><img alt="" src="../img/instas/instas15.bmp" /></p>
+<p>Comprobamos su conectividad.</p>
+<p><img alt="" src="../img/instas/instas12.jpg" /></p>
+<h3 id="3-creacion-de-la-instancia-fedora-servidor-de-aplicaciones-y-formacion-en-la-subred-privada">3. Creación de la Instancia Fedora (Servidor de Aplicaciones y Formación) en la Subred Privada</h3>
+<p>Lanzamos una nueva instancia con las siguientes configuraciones:</p>
+<p><img alt="" src="../img/instas/instas6.bmp" /></p>
+<p><img alt="" src="../img/instas/instas7.bmp" /></p>
+<p>Para permitir la conexión SSH desde la subred pública, configuramos una conexión a través de una máquina puente.</p>
+<p><img alt="" src="../img/instas/instas8.bmp" /></p>
+<p>Ahora nos podremos conectar a Fedora (interna) mediante SSH con Ubuntu y Fedora (externa), así como podemos acceder a sus servicios gráficos con la máquina Windows que vamos a crear a continuación.</p>
+<p><img alt="" src="../img/instas/instas9.bmp" /></p>
+<h3 id="4-creacion-de-la-instancia-windows-server-2025-cliente-en-la-subred-publica">4. Creación de la Instancia Windows Server 2025 (Cliente) en la Subred Pública</h3>
+<p>Creamos una nueva instancia con la siguiente configuración:</p>
+<ul>
+<li><strong>Nombre:</strong> <code>Cliente-Windows</code></li>
+<li><strong>Sistema Operativo:</strong> Windows Server 2025</li>
+<li><strong>Subred:</strong> <code>Subred-Publica</code></li>
+<li><strong>Habilitar IP pública:</strong> Sí</li>
+<li><strong>Grupo de seguridad:</strong> Permitimos RDP (3389).</li>
+</ul>
+<p><img alt="" src="../img/instas/instas10.jpg" /></p>
+<p>Configuramos credenciales de acceso y verificamos conectividad.</p>
+<p><img alt="" src="../img/instas/instas11.jpg" /></p>
+<h3 id="4-grupos-de-seguridad">4. Grupos de seguridad</h3>
+<p>Configuraremos los grupos de seguridad acorde con los servicios de los que precisaremos durante el reto.</p>
+<p><strong>Subred Pública</strong></p>
+<p><img alt="" src="../img/instas/instas16.jpg" /></p>
+<p><strong>Subred Privada</strong></p>
+<p><img alt="" src="../img/instas/instas17.jpg" /></p>
+<p>Esta configuración garantiza que cada instancia esté correctamente desplegada y conectada dentro de la infraestructura de AWS.</p></div>
         
         
     </div>
