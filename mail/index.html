@@ -151,173 +151,142 @@
 
 <h2 id="configuracion-del-servidor-de-correo-con-postfix-y-dovecot">Configuración del Servidor de Correo con Postfix y Dovecot</h2>
 <h3 id="instalacion-y-configuracion-de-postfix">Instalación y Configuración de Postfix</h3>
-<ol>
-<li><strong>Instalación de Postfix:</strong></li>
-</ol>
-<p><code>bash
-   sudo apt update &amp;&amp; sudo apt install postfix -y</code></p>
+<p><strong>Instalación de Postfix:</strong></p>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install postfix -y
+</code></pre>
 <p><img alt="" src="../img/postfix/1.bmp" /></p>
-<ol>
-<li>
 <p><strong>Configuración del dominio:</strong></p>
-</li>
-<li>
-<p>Durante la instalación, seleccionamos "Sitio de Internet" y establecemos nuestro dominio.</p>
-</li>
-</ol>
+<ul>
+<li>Durante la instalación, seleccionamos "Sitio de Internet" y establecemos nuestro dominio.</li>
+</ul>
 <p><img alt="" src="../img/postfix/2.bmp" /></p>
 <p><img alt="" src="../img/postfix/3.bmp" /></p>
 <ul>
-<li>
-<p>Editamos el archivo de configuración:</p>
-<p><code>bash
- sudo nano /etc/postfix/main.cf</code></p>
-</li>
-<li>
-<p>Nos aseguramos de definir:</p>
-<p><code>myhostname = mail.sudohero.es
- mydomain = sudohero.es
- myorigin = $mydomain
- inet_interfaces = all
- home_mailbox = Maildir/</code></p>
-</li>
+<li>Editamos el archivo de configuración:</li>
 </ul>
+<p><code>bash
+  sudo nano /etc/postfix/main.cf</code></p>
+<ul>
+<li>Nos aseguramos de definir:</li>
+</ul>
+<p><code>myhostname = mail.sudohero.es
+  mydomain = sudohero.es
+  myorigin = $mydomain
+  inet_interfaces = all
+  home_mailbox = Maildir/</code></p>
 <p><img alt="" src="../img/postfix/4.bmp" /></p>
-<ol>
-<li><strong>Creación de usuarios para correo:</strong></li>
-</ol>
-<p><code>bash
-   sudo adduser lucas
-   sudo adduser alvaro</code></p>
+<p><strong>Creación de usuarios para correo:</strong></p>
+<pre><code class="language-bash">sudo adduser lucas
+sudo adduser alvaro
+</code></pre>
 <p><img alt="" src="../img/postfix/5.bmp" /></p>
-<ol>
-<li><strong>Instalación de Mailutils y creación de buzones:</strong></li>
-</ol>
+<p><strong>Instalación de Mailutils y creación de buzones:</strong></p>
 <p>Instalamos la utilidad mailutils para probar nuestro servicio de Postfix, creamos los directorios mail de los usuarios que vamos a utilizar.</p>
-<p><code>bash
-   sudo apt install mailutils -y
-   mkdir -p /var/mail/lucas /var/mail/alvaro</code></p>
+<pre><code class="language-bash">sudo apt install mailutils -y
+mkdir -p /var/mail/lucas /var/mail/alvaro
+</code></pre>
 <p><img alt="" src="../img/postfix/6.bmp" /></p>
 <p>Tras reiniciar Postfix, utilizamos mailutils para enviar un correo desde la cuenta principal del equipo (Ubuntu) al usuario lucas. Revisamos su bandeja de entrada y comprobamos que ha recibido el correo.</p>
 <p><img alt="" src="../img/postfix/7.bmp" /></p>
-<ol>
-<li><strong>Envío de correo desde Álvaro a Lucas:</strong></li>
-</ol>
-<p><code>bash
-   su - alvaro
-   echo "Correo de prueba para lucas" | mail -s "Test para lucas" lucas@sudohero.es</code></p>
+<p><strong>Envío de correo desde Álvaro a Lucas:</strong></p>
+<pre><code class="language-bash">su - alvaro
+echo &quot;Correo de prueba para lucas&quot; | mail -s &quot;Test para lucas&quot; lucas@sudohero.es
+</code></pre>
 <ul>
 <li>Luego, verificamos la bandeja de Lucas.</li>
 </ul>
 <p><img alt="" src="../img/postfix/8.bmp" /></p>
 <hr />
 <h3 id="instalacion-y-configuracion-de-dovecot">Instalación y Configuración de Dovecot</h3>
-<ol>
-<li><strong>Instalación de Dovecot:</strong></li>
-</ol>
-<p><code>bash
-   sudo apt install dovecot-core dovecot-imapd -y</code></p>
+<p><strong>Instalación de Dovecot:</strong></p>
+<pre><code class="language-bash">sudo apt install dovecot-core dovecot-imapd -y
+</code></pre>
 <p><img alt="" src="../img/dovecot/1.bmp" /></p>
-<ol>
-<li>
 <p><strong>Configuración del Maildir:</strong></p>
-</li>
-<li>
-<p>Editamos el archivo <code>10-mail.conf</code>:</p>
-<p><code>bash
- sudo nano /etc/dovecot/conf.d/10-mail.conf</code></p>
 <ul>
-<li>Modificamos:</li>
+<li>Editamos el archivo <code>10-mail.conf</code>:</li>
 </ul>
+<p><code>bash
+  sudo nano /etc/dovecot/conf.d/10-mail.conf</code></p>
+<ul>
+<li>
+<p>Modificamos:</p>
 <p><code>mail_location = maildir:~/Maildir</code></p>
 </li>
-</ol>
-<p><img alt="" src="../img/dovecot/2.bmp" /></p>
-<ol>
-<li>
-<p><strong>Configuración de autenticación:</strong></p>
-</li>
-<li>
-<p>Editamos <code>10-auth.conf</code>:</p>
-<p><code>bash
- sudo nano /etc/dovecot/conf.d/10-auth.conf</code></p>
-<ul>
-<li>Cambiamos:</li>
 </ul>
+<p><img alt="" src="../img/dovecot/2.bmp" /></p>
+<p><strong>Configuración de autenticación:</strong></p>
+<ul>
+<li>Editamos <code>10-auth.conf</code>:</li>
+</ul>
+<p><code>bash
+  sudo nano /etc/dovecot/conf.d/10-auth.conf</code></p>
+<ul>
+<li>
+<p>Cambiamos:</p>
 <p><code>disable_plaintext_auth = yes
-   auth_mechanisms = plain login</code></p>
+auth_mechanisms = plain login</code></p>
 </li>
-</ol>
+</ul>
 <p><img alt="" src="../img/dovecot/3.bmp" /></p>
 <p><img alt="" src="../img/dovecot/4.bmp" /></p>
-<ol>
-<li>
 <p><strong>Habilitación de IMAPS:</strong></p>
-</li>
-<li>
-<p>Editamos <code>dovecot.conf</code>:</p>
-<p><code>bash
- sudo nano /etc/dovecot/dovecot.conf</code></p>
 <ul>
-<li>Modificamos:</li>
+<li>Editamos <code>dovecot.conf</code>:</li>
 </ul>
+<p><code>bash
+  sudo nano /etc/dovecot/dovecot.conf</code></p>
+<ul>
+<li>
+<p>Modificamos:</p>
 <p><code>protocols = imaps</code></p>
 </li>
-</ol>
+</ul>
 <p><img alt="" src="../img/dovecot/5.bmp" /></p>
-<ol>
-<li>
 <p><strong>Configuración del servicio IMAP:</strong></p>
-</li>
-<li>
-<p>Editamos <code>10-master.conf</code>:</p>
-<p><code>bash
- sudo nano /etc/dovecot/conf.d/10-master.conf</code></p>
 <ul>
-<li>Añadimos:</li>
+<li>Editamos <code>10-master.conf</code>:</li>
 </ul>
+<p><code>bash
+  sudo nano /etc/dovecot/conf.d/10-master.conf</code></p>
+<ul>
+<li>
+<p>Añadimos:</p>
 <p><code>service imap-login {
-       inet_listener imaps {
-           port = 993
-           ssl = yes
-       }
-   }</code></p>
+    inet_listener imaps {
+        port = 993
+        ssl = yes
+    }
+}</code></p>
 </li>
-</ol>
-<p><img alt="" src="../img/dovecot/6.bmp" /></p>
-<ol>
-<li>
-<p><strong>Configuración SSL:</strong></p>
-</li>
-<li>
-<p>Editamos <code>10-ssl.conf</code>:</p>
-<p><code>bash
- sudo nano /etc/dovecot/conf.d/10-ssl.conf</code></p>
-<ul>
-<li>Especificamos los certificados:</li>
 </ul>
-<p><code>ssl = required
-   ssl_cert = &lt;/etc/ssl/certs/ssl-cert-snakeoil.pem
-   ssl_key = &lt;/etc/ssl/private/ssl-cert-snakeoil.key</code></p>
-</li>
-</ol>
-<p><img alt="" src="../img/dovecot/7.bmp" /></p>
-<ol>
-<li><strong>Creación de directorios Maildir para los usuarios:</strong></li>
-</ol>
+<p><img alt="" src="../img/dovecot/6.bmp" /></p>
+<p><strong>Configuración SSL:</strong></p>
+<ul>
+<li>Editamos <code>10-ssl.conf</code>:</li>
+</ul>
 <p><code>bash
-   sudo mkdir -p /home/usuario/Maildir</code></p>
+  sudo nano /etc/dovecot/conf.d/10-ssl.conf</code></p>
+<ul>
+<li>
+<p>Especificamos los certificados:</p>
+<p><code>ssl = required
+ssl_cert = &lt;/etc/ssl/certs/ssl-cert-snakeoil.pem
+ssl_key = &lt;/etc/ssl/private/ssl-cert-snakeoil.key</code></p>
+</li>
+</ul>
+<p><img alt="" src="../img/dovecot/7.bmp" /></p>
+<p><strong>Creación de directorios Maildir para los usuarios:</strong></p>
+<pre><code class="language-bash">sudo mkdir -p /home/usuario/Maildir
+</code></pre>
 <p><img alt="" src="../img/dovecot/8.bmp" /></p>
 <h3 id="prueba-de-acceso-al-correo">Prueba de Acceso al Correo</h3>
-<ol>
-<li><strong>Comprobar conexión IMAP:</strong></li>
-</ol>
-<p><code>bash
-   openssl s_client -connect localhost:993 -quiet</code></p>
-<ol>
-<li><strong>Iniciar sesión con usuario y contraseña:</strong></li>
-</ol>
-<p><code>a login lucas contraseña</code></p>
+<p><strong>Comprobar conexión IMAP:</strong></p>
+<pre><code class="language-bash">openssl s_client -connect localhost:993 -quiet
+</code></pre>
+<p><strong>Iniciar sesión con usuario y contraseña:</strong></p>
+<pre><code>a login lucas contraseña
+</code></pre>
 <ul>
 <li>Si la autenticación es exitosa, el servidor responderá con <code>a OK Logged in</code>.</li>
 </ul>
