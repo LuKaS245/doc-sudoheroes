@@ -140,6 +140,13 @@
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#asignacion-de-ips-elasticas-y-configuracion-de-dns-en-ionos">Asignación de IPs elásticas y configuración de DNS en IONOS</a></li>
         <li class="first-level "><a href="#implementacion-de-un-servidor-dns-con-bind">Implementación de un servidor DNS con BIND</a></li>
+        <li class="first-level "><a href="#configuracion-de-registros-dns-para-acceso-por-ssh">Configuración de Registros DNS para Acceso por SSH</a></li>
+            <li class="second-level"><a href="#1-edicion-de-la-zona-dns">1. Edición de la Zona DNS</a></li>
+                
+            <li class="second-level"><a href="#2-reinicio-del-servidor-dns">2. Reinicio del Servidor DNS</a></li>
+                
+            <li class="second-level"><a href="#3-verificacion-de-la-configuracion">3. Verificación de la Configuración</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -191,7 +198,43 @@ systemctl restart named
 <p><img alt="img/dns-bind/image012.bmp" src="../img/dns-bind/image012.bmp" /></p>
 <p>Comprobamos que el servidor DNS funciona correctamente y se ha expandido por la red, asegurando que la resolución de nombres está operativa y accesible globalmente, permitiendo que cualquier cliente en internet pueda resolver los dominios configurados.</p>
 <p><img alt="img/dns-bind/image013.bmp" src="../img/dns-bind/image013.jpg" /></p>
-<p>Con esto, hemos finalizado la implementación del servidor DNS con BIND.</p></div>
+<p>Con esto, hemos finalizado la implementación del servidor DNS con BIND.</p>
+<h2 id="configuracion-de-registros-dns-para-acceso-por-ssh">Configuración de Registros DNS para Acceso por SSH</h2>
+<p>En esta documentación se describe el proceso de configuración de registros DNS para facilitar el acceso por SSH a las instancias de la infraestructura.</p>
+<h3 id="1-edicion-de-la-zona-dns">1. Edición de la Zona DNS</h3>
+<p>Accedemos a la instancia del servidor DNS principal.</p>
+<p><img alt="" src="../img/dns-ssh/dnssh1.jpg" /></p>
+<p>Editamos el archivo de zona con el siguiente comando:</p>
+<pre><code class="language-bash">nano /var/named/named.sudohero.es
+</code></pre>
+<p>Añadimos los registros A correspondientes a cada instancia:</p>
+<pre><code>tormenta    IN  A   10.0.1.229
+lobezno     IN  A   34.195.168.226
+phoenix     IN  A   34.197.102.164
+</code></pre>
+<p><img alt="" src="../img/dns-ssh/dnssh2.jpg" /></p>
+<h3 id="2-reinicio-del-servidor-dns">2. Reinicio del Servidor DNS</h3>
+<p>Guardamos los cambios y salimos del editor.</p>
+<p>Reiniciamos el servicio DNS para aplicar los cambios:</p>
+<pre><code class="language-bash">systemctl restart named
+</code></pre>
+<h3 id="3-verificacion-de-la-configuracion">3. Verificación de la Configuración</h3>
+<p>Comprobamos que los registros se han propagado correctamente:</p>
+<pre><code class="language-bash">nslookup tormenta.sudohero.es
+nslookup lobezno.sudohero.es
+nslookup phoenix.sudohero.es
+</code></pre>
+<p><img alt="" src="../img/dns-ssh/dnssh3.jpg" /></p>
+<p>Probamos la conexión SSH utilizando los nombres de dominio en lugar de direcciones IP:</p>
+<pre><code class="language-bash">ssh -A fedora@phoenix.sudohero.es
+ssh -A ubuntu@lobezno.sudohero.es
+</code></pre>
+<p><img alt="" src="../img/dns-ssh/dnssh4.jpg" /></p>
+<p><strong>Nota:</strong> La instancia <code>tormenta.sudohero.es</code> se encuentra en la subred privada, por lo que solo se podrá acceder a ella desde <code>lobezno.sudohero.es</code> o <code>phoenix.sudohero.es</code> mediante SSH.</p>
+<pre><code class="language-bash">ssh fedora@tormenta.sudohero.es
+</code></pre>
+<p><img alt="" src="../img/dns-ssh/dnssh5.jpg" /></p>
+<p>Esta configuración permite un acceso más cómodo y organizado a las instancias a través de nombres de dominio en lugar de direcciones IP.</p></div>
         
         
     </div>
