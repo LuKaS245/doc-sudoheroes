@@ -138,33 +138,74 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#creacion-de-virtual-hosts-informatica-y-formacion">Creación de virtual hosts informática y formación</a></li>
+        <li class="first-level active"><a href="#creacion-virtual-host-de-empresa-y-ventas-y-certificacion-con-lets-encrypt">Creación virtual host de empresa y ventas y certificación con Let's Encrypt</a></li>
+        <li class="first-level "><a href="#creacion-de-virtual-host-para-informatica-y-formacion">Creación de Virtual Host para informática y formación.</a></li>
+        <li class="first-level "><a href="#implementar-tlsssl-al-virtual-host-de-formacion">Implementar TLS/SSL al virtual host de formación.</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="creacion-de-virtual-hosts-informatica-y-formacion">Creación de virtual hosts informática y formación</h1>
+<h1 id="creacion-virtual-host-de-empresa-y-ventas-y-certificacion-con-lets-encrypt">Creación virtual host de empresa y ventas y certificación con Let's Encrypt</h1>
+<p>Creamos los directorios de empresa y ventas.</p>
+<p><img alt="Captura de pantalla 2025-02-16 132555" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20132555.png" /></p>
+<p>Creamos el index de empresa.</p>
+<p><img alt="Captura de pantalla 2025-02-16 132707" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20132707.png" /></p>
+<p>Creamos el index de ventas.</p>
+<p><img alt="Captura de pantalla 2025-02-16 132828" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20132828.png" /></p>
+<p>Mostramos la configuración que le hemos dado a empresa para que se pueda acceder por http.</p>
+<p><img alt="img7" src="img\encrypt\img7.jpg" /></p>
+<p>Mostramos la configuración que le hemos dado a ventas para que se pueda acceder por http. y por https firmado por Let's encrypt.</p>
+<p><img alt="Captura de pantalla 2025-02-16 133038" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20133038.png" /></p>
+<p>Certificamos con Let's Encrypt formacion.sudohero.es</p>
+<p><img alt="img11" src="img\encrypt\img11.jpg" /></p>
+<p>Ahora si a través del navegador entramos a ventas podemos ver como es la web.</p>
+<p><img alt="Captura de pantalla 2025-02-16 132223" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20132223.png" /></p>
+<p>Este es el certificado de Let's Encrypt que esta usando ventas para funcionar con TLS/SSL.</p>
+<p><img alt="Captura de pantalla 2025-02-16 133237" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20133237.png" /></p>
+<p>Empresa no esta certificado, por lo que se accede por el puerto 80.</p>
+<p><img alt="Captura de pantalla 2025-02-16 132335" src="../img/encrypt/Captura%20de%20pantalla%202025-02-16%20132335.png" /></p>
+<hr />
+<h1 id="creacion-de-virtual-host-para-informatica-y-formacion">Creación de Virtual Host para informática y formación.</h1>
 <p>Lo primero que debemos hacer es crear el primer fichero de nuestra web.</p>
-<p>Creamos el directorio /var/www/informatica y alli el index.html.</p>
-<p><img alt="Captura de pantalla 2025-01-29 104526" src="../img/Captura%20de%20pantalla%202025-01-29%20104526.png" /></p>
-<p>Le damos contenido.</p>
-<p><img alt="Captura de pantalla 2025-01-29 104645" src="../img/Captura%20de%20pantalla%202025-01-29%20104645.png" /></p>
-<p>Como vamos a tener dos virtual host creamos también el directorio /var/www/formacion y su propio index.html.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105020" src="../img/Captura%20de%20pantalla%202025-01-29%20105020.png" /></p>
-<p>Le damos contenido. </p>
-<p><img alt="Captura de pantalla 2025-01-29 105149" src="../img/Captura%20de%20pantalla%202025-01-29%20105149.png" /></p>
-<p>Ahora que ya tenemos algo que mostrar, en el directorio donde almacenamos los ficheros de configuración de Nginx, creamos el fichero de configuración tanto de informática como de formación.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105251" src="../img/Captura%20de%20pantalla%202025-01-29%20105251.png" /></p>
-<p>Como vamos a cambiar la ruta de los logs de errores y acceso necesitamos crearlos.</p>
-<p><img alt="Captura de pantalla 2025-01-29 105909" src="../img/Captura%20de%20pantalla%202025-01-29%20105909.png" /></p>
-<p>Necesitamos que ambos ficheros tengan una configuración adecuada con las necesidades que tenemos para nuestros virtual hosts.</p>
+<p>Creamos el directorio /var/www/informatica y alli el index.html y le damos contenido.</p>
+<p><img alt="1" src="../img/1.png" /></p>
+<p>Como vamos a tener dos virtual host creamos también el directorio /var/www/formacion y su propio index.html. Le damos contenido. </p>
+<p><img alt="Captura de pantalla 2025-02-16 115850" src="../img/Captura%20de%20pantalla%202025-02-16%20115850.png" /></p>
+<p>Ahora que ya tenemos algo que mostrar, en el directorio donde almacenamos los ficheros de configuración de Apache, creamos el fichero de configuración tanto de informática como de formación.</p>
+<p>Necesitamos que ambos ficheros tengan las directivas adecuadas a lo que queremos para nuestros virtual hosts.</p>
 <p>Es importante definir en que puerto escucha, el nombre que sirve, el fichero que va a mostrar y la localización de los ficheros de configuración. </p>
-<p><img alt="Captura de pantalla 2025-01-29 113135" src="../img/Captura%20de%20pantalla%202025-01-29%20113135.png" /></p>
-<p>Para el departamento de formación el fichero de configuración contendrá lo siguiente:</p>
-<p><img alt="Captura de pantalla 2025-01-29 111246" src="../img/Captura%20de%20pantalla%202025-01-29%20111246.png" /></p>
-<p>Una vez hechas estas configuraciones necesitamos habilitar el virtual host. Para ello usamos el comando sudo a2ensite informatica.conf y el comando sudo a2ensite formacion.conf.</p>
-<p>Si nos movemos al directorio sites-enabled veremos que se han creado los enlaces simbólicos que habilitan los virtual hosts.</p>
-<p><img alt="Captura de pantalla 2025-01-29 111706" src="../img/Captura%20de%20pantalla%202025-01-29%20111706.png" /></p></div>
+<p><img alt="Captura de pantalla 2025-02-16 120749" src="../img/Captura%20de%20pantalla%202025-02-16%20120749.png" /></p>
+<p>Como vamos a cambiar la ruta de los logs de errores y acceso, necesitamos crearlos.</p>
+<p><img alt="Captura de pantalla 2025-02-16 120454" src="../img/Captura%20de%20pantalla%202025-02-16%20120454.png" /></p>
+<p>Esto es el contenido de informatica_error_log.</p>
+<p><img alt="Captura de pantalla 2025-02-16 130827" src="../img/Captura%20de%20pantalla%202025-02-16%20130827.png" /></p>
+<p>Esto es el contenido de informatica_access_log.</p>
+<p><img alt="Captura de pantalla 2025-02-16 131049" src="../img/Captura%20de%20pantalla%202025-02-16%20131049.png" /></p>
+<p>Esto es el contenido de formacion_error_log.</p>
+<p><img alt="Captura de pantalla 2025-02-16 131231" src="../img/Captura%20de%20pantalla%202025-02-16%20131231.png" /></p>
+<p>Esto es el contenido de formacion_access_log.</p>
+<p><img alt="Captura de pantalla 2025-02-16 131321" src="../img/Captura%20de%20pantalla%202025-02-16%20131321.png" /></p>
+<p>Ahora ya podemos comprobar que son accesibles desde un navegador.</p>
+<p>Esta es la web del departamento de informática.</p>
+<p><img alt="Captura de pantalla 2025-02-16 125442" src="../img/Captura%20de%20pantalla%202025-02-16%20125442.png" /></p>
+<p>Y esta es la web del departamento de formación.</p>
+<p><img alt="Captura de pantalla 2025-02-14 131247" src="../img/Captura%20de%20pantalla%202025-02-14%20131247.png" /></p>
+<hr />
+<h1 id="implementar-tlsssl-al-virtual-host-de-formacion">Implementar TLS/SSL al virtual host de formación.</h1>
+<p>Una vez hemos creado nuestro virtual host de formación vamos a hacer que funcione con HTTPS.</p>
+<p>Para ello necesitamos crear un archivo .pem y un archivo .key.</p>
+<p>El archivo .key lo generamos con el comando openssl genrsa -out /etc/ssl/private/seguro.key 2048.</p>
+<p><img alt="Captura de pantalla 2025-01-29 114813" src="../img/Captura%20de%20pantalla%202025-01-29%20114813.png" /></p>
+<p>El archivo .pem lo generamos con el comando openssl req -new -key /etc/ssl/private/seguro.key -x509 -days 365 -out
+/etc/ssl/certs/seguro.pem.</p>
+<p><img alt="Captura de pantalla 2025-01-29 115134" src="../img/Captura%20de%20pantalla%202025-01-29%20115134.png" /></p>
+<p>Una vez tenemos ambos archivos hay que cambiar la configuración del virtual host de formación.</p>
+<p>Necesitamos que escuche por el puerto 443 y especificarle las rutas de los ficheros .pem y .key.</p>
+<p><img alt="Captura de pantalla 2025-01-29 120312" src="../img/Captura%20de%20pantalla%202025-01-29%20120312.png" /></p>
+<p>Ahora si accedemos a formación podremos ver que funciona con TLS/SSL.</p>
+<p><img alt="15" src="../img/15.png" /></p>
+<p>Este es el certificado.</p>
+<p><img alt="Captura de pantalla 2025-02-15 114442" src="../img/Captura%20de%20pantalla%202025-02-15%20114442.png" /></p></div>
         
         
     </div>
