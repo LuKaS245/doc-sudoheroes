@@ -145,6 +145,19 @@
                 
             <li class="second-level"><a href="#prueba-de-acceso-al-correo">Prueba de Acceso al Correo</a></li>
                 
+        <li class="first-level "><a href="#instalacion-de-roundcube-en-fedora">Instalación de Roundcube en Fedora</a></li>
+            <li class="second-level"><a href="#instalacion-de-apache-y-preparacion-del-entorno">Instalación de Apache y preparación del entorno</a></li>
+                
+            <li class="second-level"><a href="#descarga-e-instalacion-de-roundcube">Descarga e instalación de Roundcube</a></li>
+                
+            <li class="second-level"><a href="#configuracion-de-virtualhost">Configuración de VirtualHost</a></li>
+                
+            <li class="second-level"><a href="#instalacion-y-configuracion-de-roundcube">Instalación y configuración de Roundcube</a></li>
+                
+            <li class="second-level"><a href="#pruebas-de-smtp-e-imap">Pruebas de SMTP e IMAP</a></li>
+                
+            <li class="second-level"><a href="#acceso-a-roundcube-webmail">Acceso a Roundcube Webmail</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -291,7 +304,56 @@ ssl_key = &lt;/etc/ssl/private/ssl-cert-snakeoil.key</code></p>
 <li>Si la autenticación es exitosa, el servidor responderá con <code>a OK Logged in</code>.</li>
 </ul>
 <p><img alt="" src="../img/dovecot/9.jpg" /></p>
-<p>Con esta configuración, hemos implementado un servidor de correo funcional basado en Postfix y Dovecot, permitiendo el envío y recepción de correos con autenticación segura y soporte para IMAPS.</p></div>
+<p>Con esta configuración, hemos implementado un servidor de correo funcional basado en Postfix y Dovecot, permitiendo el envío y recepción de correos con autenticación segura y soporte para IMAPS.</p>
+<hr />
+<h2 id="instalacion-de-roundcube-en-fedora">Instalación de Roundcube en Fedora</h2>
+<h3 id="instalacion-de-apache-y-preparacion-del-entorno">Instalación de Apache y preparación del entorno</h3>
+<p>Lo primero que debemos hacer es instalar y habilitar Apache para que inicie con el sistema:</p>
+<pre><code class="language-bash">sudo systemctl start httpd.service
+sudo systemctl enable httpd.service
+</code></pre>
+<p><img alt="" src="../img/roundcube/1.bmp" /></p>
+<h3 id="descarga-e-instalacion-de-roundcube">Descarga e instalación de Roundcube</h3>
+<p>Descargamos la última versión de Roundcube, la descomprimimos y la movemos al directorio web:</p>
+<pre><code class="language-bash">sudo mv roundcubemail-1.6.10 /var/www/html/roundcube
+</code></pre>
+<p><img alt="" src="../img/roundcube/2.bmp" /></p>
+<h3 id="configuracion-de-virtualhost">Configuración de VirtualHost</h3>
+<p>Creamos un archivo de configuración en Apache para Roundcube:</p>
+<pre><code class="language-bash">sudo nano /etc/httpd/conf.d/roundcube.conf
+</code></pre>
+<p>Añadimos el siguiente contenido:</p>
+<p><img alt="" src="../img/roundcube/3.bmp" /></p>
+<p>Guardamos los cambios y verificamos la configuración:</p>
+<pre><code class="language-bash">sudo httpd -t
+</code></pre>
+<p>Si la sintaxis es correcta, reiniciamos Apache:</p>
+<pre><code class="language-bash">sudo systemctl restart httpd.service
+</code></pre>
+<p><img alt="" src="../img/roundcube/4.bmp" /></p>
+<h3 id="instalacion-y-configuracion-de-roundcube">Instalación y configuración de Roundcube</h3>
+<p>Desde la máquina cliente Windows, accedemos a la instalación de Roundcube a través del navegador:</p>
+<pre><code>http://informatica.sudohero.es/installer/
+</code></pre>
+<p><img alt="" src="../img/roundcube/5.bmp" /></p>
+<p>Verificamos que todos los módulos PHP requeridos estén instalados y completamos la configuración de Roundcube.</p>
+<h3 id="pruebas-de-smtp-e-imap">Pruebas de SMTP e IMAP</h3>
+<p>Para asegurarnos de que el servidor de correo funciona correctamente, realizamos pruebas con las siguientes configuraciones:</p>
+<ul>
+<li><strong>Prueba de SMTP:</strong></li>
+</ul>
+<p><img alt="" src="../img/roundcube/6.bmp" /></p>
+<ul>
+<li><strong>Prueba de IMAP:</strong></li>
+</ul>
+<p><img alt="" src="../img/roundcube/7.bmp" /></p>
+<h3 id="acceso-a-roundcube-webmail">Acceso a Roundcube Webmail</h3>
+<p>Una vez finalizada la instalación, accedemos a Roundcube Webmail e iniciamos sesión con nuestras credenciales:</p>
+<pre><code>http://informatica.sudohero.es/
+</code></pre>
+<p><img alt="" src="../img/roundcube/8.bmp" /></p>
+<p>Verificamos la bandeja de entrada y confirmamos la recepción de correos, como el enviado por <code>alvaro@mail.sudohero.es</code> a <code>lucas@mail.sudohero.es</code>.</p>
+<p><img alt="" src="../img/roundcube/9.bmp" /></p></div>
         
         
     </div>
