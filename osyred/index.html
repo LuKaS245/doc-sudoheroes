@@ -220,85 +220,43 @@
 <h2 id="creacion-de-la-vpc-y-subredes-en-aws">Creación de la VPC y Subredes en AWS</h2>
 <p>En esta documentación se detallará paso a paso el proceso de creación de la VPC y la configuración de las subredes en AWS.</p>
 <h3 id="1-creacion-de-la-vpc">1. Creación de la VPC</h3>
-<ol>
-<li>
 <p>Accedemos a la consola de AWS y nos dirigimos al servicio <strong>VPC</strong>.</p>
-</li>
-<li>
 <p>Hacemos clic en <strong>Crear VPC</strong> y completamos los siguientes datos:</p>
-</li>
-</ol>
 <p><img alt="" src="../img/vpc/vpc1.bmp" /></p>
-<ol>
-<li>Guardamos la configuración y verificamos que la VPC ha sido creada correctamente.</li>
-</ol>
+<p>Guardamos la configuración y verificamos que la VPC ha sido creada correctamente.</p>
 <p><img alt="" src="../img/vpc/vpc2.bmp" /></p>
 <h3 id="2-creacion-de-subredes">2. Creación de Subredes</h3>
 <h4 id="subred-publica_1"><strong>Subred Pública</strong></h4>
-<ol>
-<li>
 <p>Dentro del servicio de VPC, vamos a <strong>Subredes</strong> y hacemos clic en <strong>Crear subred</strong>.</p>
-</li>
-<li>
 <p>Completamos los siguientes campos:</p>
-</li>
-</ol>
 <p><img alt="" src="../img/vpc/vpc3.bmp" /></p>
-<ol>
-<li>Guardamos la configuración.</li>
-</ol>
+<p>Guardamos la configuración.</p>
 <h4 id="subred-privada_1"><strong>Subred Privada</strong></h4>
-<ol>
-<li>Repetimos el proceso anterior, pero con los siguientes datos:</li>
-</ol>
+<p>Repetimos el proceso anterior, pero con los siguientes datos:</p>
 <p><img alt="" src="../img/vpc/vpc4.bmp" /></p>
-<ol>
-<li>Guardamos la configuración y verificamos su creación.</li>
-</ol>
+<p>Guardamos la configuración y verificamos su creación.</p>
 <p><img alt="" src="../img/vpc/vpc5.bmp" /></p>
 <h3 id="3-configuracion-del-internet-gateway">3. Configuración del Internet Gateway</h3>
-<ol>
-<li>
 <p>Vamos a <strong>Gateways de Internet</strong> dentro de VPC y hacemos clic en <strong>Crear Gateway de Internet</strong>.</p>
-</li>
-<li>
 <p>Le damos el nombre <code>SudoHeroes-IGW</code> y confirmamos la creación.</p>
-</li>
-</ol>
 <p><img alt="" src="../img/vpc/vpc6.bmp" /></p>
-<ol>
-<li>Asociamos el <strong>Internet Gateway</strong> a la VPC <code>vpc-sudoheroes</code>.</li>
-</ol>
+<p>Asociamos el <strong>Internet Gateway</strong> a la VPC <code>vpc-sudoheroes</code>.</p>
 <p><img alt="" src="../img/vpc/vpc7.bmp" /></p>
 <h3 id="4-configuracion-de-las-tablas-de-rutas">4. Configuración de las Tablas de Rutas</h3>
 <h4 id="tabla-de-rutas-de-la-subred-publica"><strong>Tabla de rutas de la subred pública</strong></h4>
-<ol>
-<li>En <strong>Tablas de Rutas</strong>, seleccionamos la tabla de rutas creada automáticamente para la VPC.</li>
-</ol>
+<p>En <strong>Tablas de Rutas</strong>, seleccionamos la tabla de rutas creada automáticamente para la VPC.</p>
 <p><img alt="" src="../img/vpc/vpc8.bmp" /></p>
-<ol>
-<li>Agregamos una nueva regla:</li>
-</ol>
+<p>Agregamos una nueva regla:</p>
 <p><img alt="" src="../img/vpc/vpc9.bmp" /></p>
-<ol>
-<li>Guardamos la configuración.</li>
-</ol>
+<p>Guardamos la configuración.</p>
 <h4 id="tabla-de-rutas-de-la-subred-privada"><strong>Tabla de rutas de la subred privada</strong></h4>
-<ol>
-<li>Creamos una nueva <strong>NAT Gateway</strong> en la subred pública con una IP elástica asignada.</li>
-</ol>
+<p>Creamos una nueva <strong>NAT Gateway</strong> en la subred pública con una IP elástica asignada.</p>
 <p><img alt="" src="../img/vpc/vpc10.bmp" /></p>
-<ol>
-<li>Creamos una nueva tabla de rutas y la asociamos a la subred privada.</li>
-</ol>
+<p>Creamos una nueva tabla de rutas y la asociamos a la subred privada.</p>
 <p><img alt="" src="../img/vpc/vpc11.bmp" /></p>
-<ol>
-<li>Agregamos una nueva regla:</li>
-</ol>
+<p>Agregamos una nueva regla:</p>
 <p><img alt="" src="../img/vpc/vpc12.jpg" /></p>
-<ol>
-<li>Guardamos la configuración.</li>
-</ol>
+<p>Guardamos la configuración.</p>
 <p>Esta documentación describe detalladamente el proceso de creación y configuración de la VPC y sus subredes en AWS.</p></div>
         
         
