@@ -138,11 +138,74 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#instalacion-y-configuracion-de-wordpress-y-phpmyadmin">Instalación y configuración de WordPress y PhpMyAdmin</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-</div>
+<h2 id="instalacion-y-configuracion-de-wordpress-y-phpmyadmin">Instalación y configuración de WordPress y PhpMyAdmin</h2>
+<p>WordPress es un gestor de contenido que nos proporciona un entorno para administrar y crear una página web a través de su interfaz gráfica.</p>
+<p>Para ello, necesita que en el sistema haya un lenguaje de lado servidor (PHP) y una base de datos (MariaDB).</p>
+<p>Lo primero que vamos a hacer es descargar e instalar nuestro gestor de bases de datos.</p>
+<p><img alt="1" src="../img/wp/1.png" /></p>
+<p>Una vez dentro de MariaDB creamos la base de datos.</p>
+<p><img alt="2" src="../img/wp/2.png" /></p>
+<p>Y creamos nuestro usuario con todos los permisos.</p>
+<p><img alt="3" src="../img/wp/3.png" /></p>
+<p>Ya tenemos nuestra base de datos lista. Debemos tener en cuenta que por ahora está vacía. Cuando instalemos WordPress desde la interfaz gráfica se crearán automáticamente las tablas necesarias.</p>
+<p>Nos vamos a mover al directorio /var/www/html y allí descargamos WordPress. En nuestro caso bajamos la última versión.</p>
+<p><img alt="5" src="../img/wp/5.png" /></p>
+<p>Si listamos el contenido del directorio veremos que ahora tenemos WordPress comprimido. Lo descomprimimos.</p>
+<p><img alt="6" src="../img/wp/6.png" /></p>
+<p>En la carpeta WordPress viene un fichero de configuración de ejemplo que vamos a usar de plantilla. Lo copiamos a otro fichero que se llamará wp-config.php.</p>
+<p><img alt="7" src="../img/wp/7.png" /></p>
+<p>Abrimos el fichero de configuración y modificamos las directivas señaladas en rojo con los datos correspondientes.</p>
+<p><img alt="8" src="../img/wp/8.png" /></p>
+<p>Como ves, lo único que hemos hecho ha sido darle a WordPress la información de nuestra base de datos.</p>
+<p>Ahora vamos a hacer que WordPress y todo su contenido sea del usuario y grupo de apache y darle los permisos adecuados a todo el contenido de la carpeta WordPress.</p>
+<p><img alt="9" src="../img/wp/9.png" /></p>
+<p>Hasta ahora solo hemos configurado la base de datos, y configurado WordPress para que la use.</p>
+<p>Ahora necesitamos configurar el virtual host en el que estará WordPress sirviendo su contenido.</p>
+<p>Este es el fichero de configuración del virtual host de apache que servirá el WordPress.</p>
+<p>Por ahora debemos ignorar el contenido de los directorios del webmail pues esas configuraciones se explican en la documentación del servicio de correo.</p>
+<p><img alt="Captura de pantalla 2025-02-15 101348" src="../img/wp/Captura%20de%20pantalla%202025-02-15%20101348.png" /></p>
+<p>Ahora debemos crear un enlace simbólico del virtual host de informática hacia WordPress.</p>
+<p><img alt="12" src="../img/wp/12.png" /></p>
+<p>Si todo está bien configurado, podemos abrir un navegador web en una máquina que tenga comunicación con la máquina en la que hemos hecho las configuraciones. Nosotros lo hemos hecho con Windows. En cualquier caso, necesitamos de alguna manera poder resolver la URL que hemos puesto como en la directiva ServerName del fichero de configuración del virtual host. En Windows, se hace en el fichero hosts.</p>
+<p>Como se ve en la imagen, añadimos una línea en la que indicamos que la IP de nuestra máquina corresponde al nombre informatica-wp.sudohero.es</p>
+<p><img alt="Captura de pantalla 2025-02-15 103032" src="../img/wp/Captura%20de%20pantalla%202025-02-15%20103032.png" /></p>
+<p>Ahora ya podemos abrir un navegador y comprobarlo.</p>
+<p><img alt="16b" src="../img/wp/16b.png" /></p>
+<p>Lo único que queda es completar la instalación desde el propio navegador, proporcionando los datos que nos pida.</p>
+<p>Al acabar veremos que tenemos disponible el panel de administración a partir del cual podemos trabajar en la web.</p>
+<p><img alt="18" src="../img/wp/18.png" /></p>
+<p>Esta es la página de ejemplo.</p>
+<p><img alt="Captura de pantalla 2025-02-15 105433" src="../img/wp/Captura%20de%20pantalla%202025-02-15%20105433.png" /></p>
+<p>De momento tan solo tenemos acceso a WordPress, ahora vamos a implementar una manera más cómoda de administrar nuestra base de datos.</p>
+<p>PhpMyAdmin es una herramienta gráfica que nos permite a través de un navegador web administrar nuestra base de datos.</p>
+<p>Instalamos PhpMyAdmin.</p>
+<p><img alt="19" src="../img/wp/19.png" /></p>
+<p>Como vamos a querer acceder a través del mismo Windows con el que accedemos a WordPress, nos vamos al fichero de configuración y cambiamos las directivas "require local" por "require all granted".</p>
+<p><img alt="20" src="../img/wp/20.png" /></p>
+<p>Ahora, si intentamos acceder nos pedirá las credenciales, es decir, el usuario y contraseña que habíamos configurado la primera vez que accedimos a MariaDB.</p>
+<p>Una vez autenticados, el panel de administración es accesible y vemos que a la izquierda aparece la base de datos del WordPress.</p>
+<p><img alt="Captura de pantalla 2025-02-15 112034" src="../img/wp/Captura%20de%20pantalla%202025-02-15%20112034.png" /></p>
+<hr />
+<p>Primero he instalado moodle en la carpeta de formación. Pero por un error tonto, creé la carpeta sudohero.es y lo instalé allí. Así que moví todo a formación para que no hubiese fallos por reduplicación o sintaxis errónea.</p>
+<p><img alt="moodle" src="../img/moodle.png" /></p>
+<p>Creo el fichero de configuración para poder acceder a moodle a través de la url https://formacion.sudohero.es/moodle/install.php</p>
+<p><img alt="mood2" src="../img/mood2.png" /></p>
+<p>Una vez hemos configurado nuestra máquina fedora, introducimos la url en el navegador y comenzamos la instalación.</p>
+<p><img alt="instalacionmoodle" src="../img/instalacionmoodle.png" /></p>
+<p>Para poder completar la instalación tendremos que cambiar el max-imput vars, instalar soap y crear el archivo config.php.</p>
+<p><img alt="soapmoodle" src="../img/soapmoodle.png" /></p>
+<p><img alt="config.php" src="../img/config.php.png" /></p>
+<p>Una vez que moodle nos dice que hemos cumplido con todos los requisitos, nos llevará a la configuración de nuestro moodle donde tendremos que añadir el usuario gestor, por defecto es admin. Nosotros lo vamos a cambiar para que sea más fácil de recordar ya que está dentro de la red privada de la empresa y es una práctica por lo que no va a haber problemas de seguridad.</p>
+<p><img alt="usuariomoodle" src="../img/usuariomoodle.png" /></p>
+<p>Una vez hemos añadido, aparecemos en la página principal. Nos vamos a cursos y añadimos los cursos que va a tener nuestro moodle:</p>
+<p><img alt="cursosmoodle" src="../img/cursosmoodle.png" /></p>
+<p>Tenemos esos cursos ya que en nuestra página de formación tenemos estos:</p>
+<p><img alt="formacion-index" src="../img/formacion-index.png" /></p></div>
         
         
     </div>
