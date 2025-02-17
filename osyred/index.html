@@ -138,11 +138,72 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#sistemas-operativos-y-configuracion-de-red">Sistemas Operativos y Configuración de Red</a></li>
+            <li class="second-level"><a href="#diagrama-de-red">Diagrama de Red</a></li>
+                
+            <li class="second-level"><a href="#infraestructura-en-aws">Infraestructura en AWS</a></li>
+                
+            <li class="second-level"><a href="#servidores-y-funcionalidad">Servidores y Funcionalidad</a></li>
+                
+                <li class="third-level"><a href="#subred-publica">Subred Pública</a></li>
+                <li class="third-level"><a href="#subred-privada">Subred Privada</a></li>
+            <li class="second-level"><a href="#configuracion-de-red">Configuración de Red</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-</div>
+<h2 id="sistemas-operativos-y-configuracion-de-red">Sistemas Operativos y Configuración de Red</h2>
+<h3 id="diagrama-de-red">Diagrama de Red</h3>
+<p>A continuación, se presenta el diagrama de la infraestructura de red diseñada:</p>
+<p><img alt="img/red/diagrama.png" src="../img/red/diagrama.png" /></p>
+<h3 id="infraestructura-en-aws">Infraestructura en AWS</h3>
+<p>Nuestra infraestructura está alojada en la nube de AWS dentro de una VPC, la cual está dividida en dos subredes:</p>
+<ul>
+<li><strong>Subred Pública (10.0.0.0/24)</strong>: Contiene los servidores accesibles desde internet.</li>
+<li><strong>Subred Privada (10.0.1.0/24)</strong>: Contiene servidores internos sin acceso directo a internet.</li>
+</ul>
+<p>AWS proporciona los servicios necesarios para la gestión del tráfico entre subredes y hacia el exterior, por lo que no es necesario contar con una máquina dedicada como router. En su lugar, se utilizan las herramientas nativas de AWS, como las tablas de rutas y las gateways de internet y NAT. Además, AWS proporciona un acceso seguro a las máquinas mediante SSH, RDP y SFTP, utilizando claves para garantizar la autenticación y la integridad de las conexiones remotas.</p>
+<h3 id="servidores-y-funcionalidad">Servidores y Funcionalidad</h3>
+<h4 id="subred-publica"><strong>Subred Pública</strong></h4>
+<ul>
+<li><strong>Servidor DNS Primario (Fedora)</strong>: Encargado exclusivamente del servicio de resolución de nombres mediante BIND.</li>
+<li>
+<p><strong>IP privada:</strong> <code>10.0.0.138</code></p>
+</li>
+<li>
+<p><strong>Servidor Web, Correo y DNS Secundario (Ubuntu 24.04)</strong>:</p>
+</li>
+<li>Funciona como respaldo del servidor DNS primario.</li>
+<li>Aloja un servidor web Nginx con la web principal y la web del departamento de ventas.</li>
+<li>Implementa un servidor de correo basado en Postfix y Dovecot.</li>
+<li>Ejecuta MkDocs para la gestión y publicación de documentación en GitHub Pages.</li>
+<li>
+<p><strong>IP privada:</strong> <code>10.0.0.89</code></p>
+</li>
+<li>
+<p><strong>Cliente Windows Server 2025</strong>:</p>
+</li>
+<li>Se utiliza para visualizar y probar todas las aplicaciones que requieren una interfaz gráfica.</li>
+<li>Está alojado en la subred pública.</li>
+</ul>
+<h4 id="subred-privada"><strong>Subred Privada</strong></h4>
+<ul>
+<li><strong>Servidor de Aplicaciones y Formación (Fedora)</strong>:</li>
+<li>Ejecuta un servidor web Apache con VirtualHosts para los departamentos de informática y formación.</li>
+<li>En el departamento de informática aloja un sitio WordPress.</li>
+<li>En el departamento de formación gestiona Moodle como plataforma educativa.</li>
+<li>Implementa un servicio de webmail Roundcube, el cual se conecta con el servidor de correo alojado en la subred pública.</li>
+<li><strong>IP privada:</strong> <code>10.0.1.229</code></li>
+</ul>
+<h3 id="configuracion-de-red">Configuración de Red</h3>
+<p>Para garantizar la comunicación entre las máquinas, se han establecido las siguientes configuraciones:</p>
+<ul>
+<li><strong>Internet Gateway y NAT Gateway</strong>: Permiten el acceso a internet de las instancias en la subred pública y facilitan la conectividad de la subred privada a internet sin exponerla directamente.</li>
+<li><strong>Tablas de Rutas</strong>: Se han definido rutas para la comunicación entre las subredes y la conexión externa.</li>
+<li><strong>Configuración de DNS</strong>: Se ha implementado un sistema de resolución de nombres interno para gestionar los dominios de la infraestructura.</li>
+</ul>
+<p>Esta configuración servirá como base para la correcta implementación de los servicios de red en fases posteriores del proyecto.</p></div>
         
         
     </div>
